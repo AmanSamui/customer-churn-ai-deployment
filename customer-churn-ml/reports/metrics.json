@@ -1,0 +1,65 @@
+{
+  "dataset": {
+    "source": "IBM Telco Customer Churn dataset",
+    "rows_before": 7043,
+    "rows_after": 7043,
+    "duplicate_rows_removed": 0,
+    "missing_values_before_pipeline": {
+      "TotalCharges": 11
+    },
+    "target_distribution": {
+      "No": 5174,
+      "Yes": 1869
+    }
+  },
+  "test_size": 1409,
+  "random_state": 42,
+  "models": [
+    {
+      "model": "logistic_regression",
+      "accuracy": 0.7395,
+      "precision": 0.506,
+      "recall": 0.7834,
+      "f1": 0.6149,
+      "roc_auc": 0.8411,
+      "confusion_matrix": [
+        [
+          749,
+          286
+        ],
+        [
+          81,
+          293
+        ]
+      ],
+      "best_params": {
+        "model__C": 3.0
+      }
+    },
+    {
+      "model": "random_forest",
+      "accuracy": 0.7637,
+      "precision": 0.539,
+      "recall": 0.7567,
+      "f1": 0.6296,
+      "roc_auc": 0.841,
+      "confusion_matrix": [
+        [
+          793,
+          242
+        ],
+        [
+          91,
+          283
+        ]
+      ],
+      "best_params": {
+        "model__max_depth": 12,
+        "model__min_samples_leaf": 3,
+        "model__n_estimators": 200
+      }
+    }
+  ],
+  "selected_model": "logistic_regression",
+  "selection_rule": "highest ROC-AUC, then F1-score"
+}

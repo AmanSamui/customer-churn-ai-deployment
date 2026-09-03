@@ -1,0 +1,33 @@
+{
+  "summary": "Verified artifact-recovery fix for customer-churn-ml. Model bytes are byte-for-byte identical (SHA-256 matches required hash). .gitignore now un-ignores the artifact via a negation rule. FastAPI /health and /predict work end-to-end, and full pytest regression (6/6) passes.",
+  "verification_details": {
+    "artifact_sha256_actual": "721ff5a23a1a7cea0b6d4c03bc1cc6e435df855625ef04c8c478cfe31e28feb3",
+    "artifact_sha256_expected": "721ff5a23a1a7cea0b6d4c03bc1cc6e435df855625ef04c8c478cfe31e28feb3",
+    "sha_match": true,
+    "gitignore_contents_tail": "model/*.joblib\\n!model/churn_pipeline.joblib",
+    "git_check_ignore_output": "customer-churn-ml/.gitignore:7:!model/churn_pipeline.joblib\\tcustomer-churn-ml/model/churn_pipeline.joblib",
+    "git_check_ignore_exit_code": 1,
+    "git_check_ignore_interpretation": "Exit code 1 => path is NOT ignored. Last matching rule is the negation at line 7, as required.",
+    "backend_health": "{\"status\":\"healthy\"}",
+    "backend_predict_response": "{\"prediction\":\"Yes\",\"churn_probability\":0.6467,\"risk_level\":\"Medium\"}",
+    "pytest_result": "6 passed, 0 failed (tests/test_api.py)",
+    "uvicorn_port_note": "Port 8010 was already occupied by an internal 'Agent Tool API' service in this container; used port 8765 instead. Backend code unchanged; behavior identical."
+  },
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/customer-churn-ml/tests/test_api.py",
+    "/app/test_reports/pytest/pytest_churn_iter4.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix is minimal and correct: only .gitignore modified with a negation rule; artifact bytes untouched; loader code untouched.",
+    "Note for main agent: In this container port 8010 is already bound by an internal service. This does not affect the fix, but any future dev-run instructions should prefer a different local port (e.g., 8765) or check availability first."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "N/A (skipped per request)"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Artifact SHA-256 must remain 721ff5a2...feb3. .gitignore negation at line 7 must remain. Do NOT retrain or resave the joblib. Prefer local port 8765 (or any free port) since 8010 is occupied by an internal service in this pod."
+}

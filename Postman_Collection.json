@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "1d86d52a-9e12-4fb3-b413-5a7a72d7f8a9",
+		"name": "Customer Churn AI Prediction",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://customer-churn-ai-deployment.onrender.com/health",
+					"protocol": "https",
+					"host": ["customer-churn-ai-deployment", "onrender", "com"],
+					"path": ["health"]
+				},
+				"description": "Checks if the API is up and running."
+			}
+		},
+		{
+			"name": "2. Single Prediction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerID\": \"7590-VHVEG\",\n  \"gender\": \"Female\",\n  \"SeniorCitizen\": 0,\n  \"Partner\": \"Yes\",\n  \"Dependents\": \"No\",\n  \"tenure\": 1,\n  \"PhoneService\": \"No\",\n  \"MultipleLines\": \"No phone service\",\n  \"InternetService\": \"DSL\",\n  \"OnlineSecurity\": \"No\",\n  \"OnlineBackup\": \"Yes\",\n  \"DeviceProtection\": \"No\",\n  \"TechSupport\": \"No\",\n  \"StreamingTV\": \"No\",\n  \"StreamingMovies\": \"No\",\n  \"Contract\": \"Month-to-month\",\n  \"PaperlessBilling\": \"Yes\",\n  \"PaymentMethod\": \"Electronic check\",\n  \"MonthlyCharges\": 29.85,\n  \"TotalCharges\": 29.85\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://customer-churn-ai-deployment.onrender.com/predict",
+					"protocol": "https",
+					"host": ["customer-churn-ai-deployment", "onrender", "com"],
+					"path": ["predict"]
+				},
+				"description": "Predicts churn probability for a single customer."
+			}
+		},
+		{
+			"name": "3. Batch Prediction (File Upload)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "https://customer-churn-ai-deployment.onrender.com/predict/file",
+					"protocol": "https",
+					"host": ["customer-churn-ai-deployment", "onrender", "com"],
+					"path": ["predict", "file"]
+				},
+				"description": "Predicts churn for multiple customers via CSV upload."
+			}
+		}
+	]
+}
